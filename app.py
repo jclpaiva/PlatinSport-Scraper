@@ -63,7 +63,7 @@ def search_matches(searchterm: str, **kwargs):
     
     # Create flexible search pattern
     search_pattern = create_flexible_search_pattern(searchterm)
-    
+       
     # Normalize table columns for consistent matching
     matches = st.session_state.original_table[
         (st.session_state.original_table['Match'].str.normalize('NFKD').str.lower().str.contains(search_pattern, case=False, regex=True, na=False)) |
@@ -72,24 +72,6 @@ def search_matches(searchterm: str, **kwargs):
     
     # Store search results in session state
     st.session_state.search_results = matches.to_dict('records')
-    
-    # Return match names for dropdown
-    return []  # Return empty list to prevent dropdown
-    
-    # Create flexible search pattern
-    search_pattern = create_flexible_search_pattern(searchterm)
-    
-    # Normalize table columns for consistent matching
-    matches = st.session_state.original_table[
-        (st.session_state.original_table['Match'].str.normalize('NFKD').str.lower().str.contains(search_pattern, case=False, regex=True, na=False)) |
-        (st.session_state.original_table['Channel'].str.normalize('NFKD').str.lower().str.contains(search_pattern, case=False, regex=True, na=False))
-    ]
-    
-    # Store search results in session state
-    st.session_state.search_results = matches.to_dict('records')
-    
-    # Return match names for dropdown
-    return []  # Return empty list to prevent dropdown
 
 def apply_search_filter(selected_match=None):
     """
@@ -111,28 +93,6 @@ def apply_search_filter(selected_match=None):
         # If no results, show original table
         st.session_state.filtered_df = st.session_state.original_table
 
-# Add custom CSS to completely remove any dropdown elements
-st.markdown("""
-<style>
-    /* Aggressive dropdown removal */
-    .stSelectbox, 
-    .stSearchbox > div > div > div > div,
-    .stSearchbox-dropdown {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        height: 0 !important;
-        overflow: hidden !important;
-    }
-    
-    /* Ensure input field remains */
-    .stSearchbox > div > div > div > input {
-        display: block !important;
-        visibility: visible !important;
-    }
-</style>
-""", unsafe_allow_html=True)
-
 st.markdown("<h1 style='text-align: left; margin-top: -3.5rem'><i>PlatinSport</i> Matches <span style='color: #4A90E2'>Scraper</span> ⚽</h1>", unsafe_allow_html=True)
 
 st.markdown("""
@@ -141,14 +101,14 @@ st.markdown("""
     .stMarkdown { font-size: 12px !important; }
     th {
         font-size: 1rem !important;
-        font-family: "Source Sans Pro", sans-serif !important;
+        font-family: "Source Sans Pro", Tahoma !important;
         background-color: #d4ac0d !important;
         position: sticky !important;
         top: 0 !important;
         z-index: 1 !important;
         color: black !important;
     }
-    td { font-size: 10px !important; }
+    td { font-size: 11.5px !important; }
     td:nth-child(1), th:nth-child(1) { text-align: left !important; }
     td:nth-child(2), th:nth-child(2) { text-align: left !important; }
     td:nth-child(3), th:nth-child(3) { text-align: center !important; }
@@ -196,6 +156,7 @@ if match_url:
 
         # Sidebar search with dynamic updates
         with st.sidebar:
+        
             # Searchbox with term persistence
             selected_match = st_searchbox(
                 search_matches,
