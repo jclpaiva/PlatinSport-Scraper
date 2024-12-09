@@ -148,7 +148,7 @@ st.markdown("""
         z-index: 1 !important;
         color: black !important;
     }
-    td { font-size: 12px !important; }
+    td { font-size: 10px !important; }
     td:nth-child(1), th:nth-child(1) { text-align: left !important; }
     td:nth-child(2), th:nth-child(2) { text-align: left !important; }
     td:nth-child(3), th:nth-child(3) { text-align: center !important; }
