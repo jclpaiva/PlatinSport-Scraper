@@ -26,23 +26,13 @@ if 'search_term' not in st.session_state:
     st.session_state.search_term = ''
 
 def create_flexible_search_pattern(searchterm: str):
-    """
-    Create a flexible regex pattern that handles dots and spaces precisely
-    
-    Args:
-        searchterm (str): Raw search input
-    
-    Returns:
-        str: Flexible regex pattern
-    """
     # Normalize the search term
     normalized_term = unicodedata.normalize('NFKD', searchterm.lower().strip())
     
     # Escape special regex characters
     escaped_term = re.escape(normalized_term)
     
-    # Replace escaped dot with flexible dot pattern
-    # This allows optional spaces around the dot
+    # Replace escaped dot with flexible dot pattern. This allows optional spaces around the dot
     flexible_pattern = escaped_term.replace(r'\.', r'\.\s*')
     
     return flexible_pattern
