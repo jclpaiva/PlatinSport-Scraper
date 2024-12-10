@@ -97,7 +97,6 @@ st.markdown("<h1 style='text-align: left; margin-top: -3.5rem'><i>PlatinSport</i
 
 st.markdown("""
 <style>
-    .stSuccess { padding: 2rem !important; }
     .stMarkdown { font-size: 12px !important; }
     th {
         font-size: 1rem !important;
@@ -113,7 +112,7 @@ st.markdown("""
     td:nth-child(2), th:nth-child(2) { text-align: left !important; }
     td:nth-child(3), th:nth-child(3) { text-align: center !important; }
     .scrollable-table {
-        height: 340px;
+        height: 400px;
         overflow-y: auto;
         border: 1px solid #ddd;
     }
@@ -130,15 +129,6 @@ if match_url:
     
     data, schedule_date = scrape_platinsport(match_url)
     if isinstance(data, pd.DataFrame) and not data.empty:
-        # Parse the scraped date and reformat it
-        try:
-            parsed_date = datetime.strptime(schedule_date.split('SCHEDULE')[0].strip(), "%A %dTH %B %Y")
-            formatted_date = parsed_date.strftime("%A %d %B %Y (UTC)")
-            st.success(f"Matches successfully scraped!  \u2003 {formatted_date}")
-        except ValueError:
-            st.error("Failed to parse the schedule date format.")
-        
-    
         # Create display table if not already in session state
         if st.session_state.original_table is None:
             display_df = data.copy()
