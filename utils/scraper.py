@@ -1,17 +1,7 @@
-import re
 import requests
-import unicodedata
 import pandas as pd
 import streamlit as st
 from bs4 import BeautifulSoup
-
-def normalize_text(text):
-    """
-    Normalize the text to avoid discrepancies with accents and spaces.
-    """
-    text = unicodedata.normalize('NFKD', text).encode('ASCII', 'ignore').decode('ASCII')
-    text = re.sub(r'\s+', ' ', text.strip())  # Remove extra spaces
-    return text.upper()  # Return in lowercase for easier comparison
 
 def scrape_platinsport(url):
     try:
@@ -57,9 +47,8 @@ def scrape_platinsport(url):
                 else:
                     current_match = text
             elif element.name == 'a' and 'acestream://' in element.get('href', ''):
-                channel_name = normalize_text(element.text.strip())
+                channel_name = element.text.strip()
                 acestream_link = element.get('href').replace('acestream://', '')
-                current_match = normalize_text(current_match)  # Normalize match name
                 matches.append(current_match)
                 channels.append(channel_name)
                 acestream_links.append(acestream_link)
@@ -71,27 +60,3 @@ def scrape_platinsport(url):
     })
     
     return df, schedule_date
-
-def search_matches(searchterm: str, df):
-    """
-    Function to search and filter matches based on the search term.
-    
-    Args:
-        searchterm (str): The term the user inputs for filtering.
-        df (pd.DataFrame): The DataFrame containing the matches and channel data.
-        
-    Returns:
-        pd.DataFrame: The filtered results.
-    """
-    if not searchterm:
-        return df  # Return all data if searchterm is empty
-
-    normalized_searchterm = normalize_text(searchterm)  # Normalize the search term
-
-    # Filter the dataframe based on normalized text
-    matches = df[
-        df['Match'].str.contains(normalized_searchterm, na=False) |
-        df['Channel'].str.contains(normalized_searchterm, na=False)
-    ]
-
-    return matches
