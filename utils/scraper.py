@@ -3,7 +3,8 @@ import pandas as pd
 import streamlit as st
 from bs4 import BeautifulSoup
 
-def scrape_platinsport(url):
+#def scrape_platinsport(url):
+def scrape_platinsport(url: str) -> tuple:
     try:
         response = requests.get(url, timeout=10)
         response.raise_for_status()
