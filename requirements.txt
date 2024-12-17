@@ -1,8 +1,0 @@
-streamlit
-pandas
-requests
-beautifulsoup4
-keyboard
-psutil
-xlsxwriter
-streamlit-searchbox==0.1.6
