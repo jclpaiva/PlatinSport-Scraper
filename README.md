@@ -15,11 +15,14 @@ A Streamlit-based web application that scrapes and displays sports match data fr
 
 - Python 3.x
 - Streamlit
+- Streamlit-searchbox
 - Pandas
+- Numpy
 - BeautifulSoup4
 - Requests
 - Keyboard
 - Psutil
+- xlsxwriter
 
 ## 📋 Prerequisites
 
