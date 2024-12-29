@@ -7,12 +7,7 @@ from bs4 import BeautifulSoup
 class CountryCodeTranslator:
     """Handles country code translations for specific cases."""
     COUNTRY_CODE_MAPPING = {
-        'GB': 'UK',    # Keep uppercase
-        'UA': 'UKR',   # Keep uppercase
-        'TR': 'TR-1',  # Keep the -1 suffix
-        'PT': 'PT',    # Keep uppercase
-        'RU': 'RU',    # Keep uppercase
-        'US': 'US'     # Keep uppercase
+        'TR': 'tr',  # Keep the -1 suffix
     }
 
     @classmethod
